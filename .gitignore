@@ -7,3 +7,7 @@ web/backend/server
 # Go build cache
 bin/
 obj/
+
+# Node
+web/frontend/node_modules/
+web/frontend/build/
