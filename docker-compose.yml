@@ -12,6 +12,16 @@ services:
       - ./web/backend:/app
     depends_on:
       - s3
+  frontend:
+    build:
+      context: ./web/frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_API_URL=http://backend:8080
+    depends_on:
+      - backend
   s3:
     image: minio/minio:latest
     environment:
