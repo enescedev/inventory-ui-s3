@@ -1,0 +1,9 @@
+# Ignore environment files
+.env
+
+# Build artifacts
+web/backend/server
+
+# Go build cache
+bin/
+obj/
