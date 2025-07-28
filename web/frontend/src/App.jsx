@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { AppBar, Tabs, Tab, Box, Container } from '@mui/material';
 import TabPanel from './components/TabPanel';
 
-const API_BASE = process.env.REACT_APP_API_URL || '';
+const API_BASE = process.env.REACT_APP_API_URL || '/api';
 
 export default function App() {
   const [value, setValue] = useState(0);

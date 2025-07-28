@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { Box, Button, TextField, CircularProgress, Alert } from '@mui/material';
 
-const API_BASE = process.env.REACT_APP_API_URL || '';
+const API_BASE = process.env.REACT_APP_API_URL || '/api';
 
 export default function TableView({ tableName }) {
   const [rows, setRows] = useState([]);

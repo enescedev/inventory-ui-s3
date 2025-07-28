@@ -22,6 +22,7 @@ type TableHandler struct {
 
 // GetTabs lists available directories under the bucket
 func (h *TableHandler) GetTabs(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	tabs := map[string]struct{}{}
 	for object := range h.Client.ListObjects(r.Context(), h.Bucket, minio.ListObjectsOptions{Recursive: true}) {
 		if object.Err != nil {
@@ -44,6 +45,7 @@ func (h *TableHandler) GetTabs(w http.ResponseWriter, r *http.Request) {
 
 // GetTable fetches the latest file for a given tab and returns JSON
 func (h *TableHandler) GetTable(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	tab := mux.Vars(r)["tab"]
 	prefix := tab + "/"
 	var latest minio.ObjectInfo
@@ -119,6 +121,7 @@ func (h *TableHandler) GetTable(w http.ResponseWriter, r *http.Request) {
 
 // PutTable uploads JSON data for a given tab
 func (h *TableHandler) PutTable(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	tab := mux.Vars(r)["tab"]
 	data, err := io.ReadAll(r.Body)
 	if err != nil {
