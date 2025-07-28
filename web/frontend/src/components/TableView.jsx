@@ -2,7 +2,8 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { Box, Button, TextField, CircularProgress, Alert } from '@mui/material';
 
-const API_BASE = process.env.REACT_APP_API_URL || '/api';
+const API_BASE_URL =
+  process.env.REACT_APP_API_URL || 'http://localhost:8080/api';
 
 export default function TableView({ tableName }) {
   const [rows, setRows] = useState([]);
@@ -13,7 +14,7 @@ export default function TableView({ tableName }) {
 
   const fetchData = useCallback(() => {
     setLoading(true);
-    fetch(`${API_BASE}/api/table/${tableName}`)
+    fetch(`${API_BASE_URL}/table/${tableName}`)
       .then((res) => {
         if (!res.ok) throw new Error('Failed to fetch data');
         return res.json();
@@ -49,7 +50,7 @@ export default function TableView({ tableName }) {
 
   const handleSave = () => {
     const output = rows.map(({ id, ...rest }) => rest);
-    fetch(`${API_BASE}/api/table/${tableName}`, {
+    fetch(`${API_BASE_URL}/table/${tableName}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(output),

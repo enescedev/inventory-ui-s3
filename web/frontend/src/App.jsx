@@ -2,14 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { AppBar, Tabs, Tab, Box, Container } from '@mui/material';
 import TabPanel from './components/TabPanel';
 
-const API_BASE = process.env.REACT_APP_API_URL || '/api';
+const API_BASE_URL =
+  process.env.REACT_APP_API_URL || 'http://localhost:8080/api';
 
 export default function App() {
   const [value, setValue] = useState(0);
   const [tabNames, setTabNames] = useState([]);
 
   useEffect(() => {
-    fetch(`${API_BASE}/api/tabs`)
+    fetch(`${API_BASE_URL}/tabs`)
       .then((res) => res.json())
       .then((data) => setTabNames(data))
       .catch(() => setTabNames([]));
