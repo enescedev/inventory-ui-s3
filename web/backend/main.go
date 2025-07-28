@@ -51,8 +51,10 @@ func main() {
 
 	h := &handlers.TableHandler{Client: client, Bucket: bucket}
 	r := mux.NewRouter()
-	r.HandleFunc("/table", h.GetTable).Methods(http.MethodGet)
-	r.HandleFunc("/table", h.PutTable).Methods(http.MethodPut)
+	api := r.PathPrefix("/api").Subrouter()
+	api.HandleFunc("/tabs", h.GetTabs).Methods(http.MethodGet)
+	api.HandleFunc("/table/{tab}", h.GetTable).Methods(http.MethodGet)
+	api.HandleFunc("/table/{tab}", h.PutTable).Methods(http.MethodPut)
 
 	log.Println("Starting server on :8080")
 	if err := http.ListenAndServe(":8080", r); err != nil {

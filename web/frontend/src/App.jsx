@@ -1,11 +1,19 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { AppBar, Tabs, Tab, Box, Container } from '@mui/material';
 import TabPanel from './components/TabPanel';
 
-const tabNames = ['ceph', 'kubernetes', 'openshift'];
+const API_BASE = process.env.REACT_APP_API_URL || '/api';
 
 export default function App() {
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
+  const [tabNames, setTabNames] = useState([]);
+
+  useEffect(() => {
+    fetch(`${API_BASE}/api/tabs`)
+      .then((res) => res.json())
+      .then((data) => setTabNames(data))
+      .catch(() => setTabNames([]));
+  }, []);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
